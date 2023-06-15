@@ -3,6 +3,9 @@ import pygame
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
+PLAYER_WIDTH = 15
+PLAYER_HEIGHT = 45
+
 player_x_pos = 30
 player_y_pos = 30
 
@@ -11,7 +14,7 @@ pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 
-player_surf = pygame.Surface((15, 45))
+player_surf = pygame.Surface((PLAYER_WIDTH, PLAYER_HEIGHT))
 player_surf.fill("White")
 
 running = True
@@ -30,6 +33,11 @@ while running:
         player_y_pos -= 4
     if pressed_keys[pygame.K_DOWN]:
         player_y_pos += 4
+
+    if player_y_pos < 0:
+        player_y_pos = 0
+    if player_y_pos > SCREEN_HEIGHT - PLAYER_HEIGHT:
+        player_y_pos = SCREEN_HEIGHT - PLAYER_HEIGHT
 
     # Render
     screen.fill("Black")
