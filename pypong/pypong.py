@@ -1,5 +1,6 @@
 import pygame
 from player import Player
+from ball import Ball
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -12,6 +13,7 @@ clock = pygame.time.Clock()
 
 player = Player()
 opponent = Player()
+ball = Ball((SCREEN_WIDTH - SCREEN_PADDING - 20, SCREEN_PADDING), SCREEN_HEIGHT)
 
 player.set_y_limit(SCREEN_HEIGHT)
 opponent.set_y_limit(SCREEN_HEIGHT)
@@ -35,11 +37,13 @@ while running:
         player.move(-4)
     if pressed_keys[pygame.K_DOWN]:
         player.move(4)
+    ball.move(3)
 
     # Render
     screen.fill("Black")
     screen.blit(player.surface, player.get_pos())
     screen.blit(opponent.surface, opponent.get_pos())
+    screen.blit(ball.surface, ball.get_pos())
 
     pygame.display.update()
 
