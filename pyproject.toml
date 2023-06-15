@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "pypong"
+version = "0.1.0"
+description = "A Pong clone written in Python"
+authors = ["Julianne Adams <julianne@julianneadams.info>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pygame = "^2.4.0"
+
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
