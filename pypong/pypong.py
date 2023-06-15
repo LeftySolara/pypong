@@ -2,12 +2,16 @@ import pygame
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
+SCREEN_PADDING = 30
 
 PLAYER_WIDTH = 15
 PLAYER_HEIGHT = 45
 
-player_x_pos = 30
-player_y_pos = 30
+player_x_pos = SCREEN_PADDING
+player_y_pos = SCREEN_PADDING
+
+opponent_x_pos = SCREEN_WIDTH - SCREEN_PADDING - PLAYER_WIDTH
+opponent_y_pos = SCREEN_PADDING
 
 pygame.init()
 
@@ -16,6 +20,9 @@ clock = pygame.time.Clock()
 
 player_surf = pygame.Surface((PLAYER_WIDTH, PLAYER_HEIGHT))
 player_surf.fill("White")
+
+opponent_surf = pygame.Surface((PLAYER_WIDTH, PLAYER_HEIGHT))
+opponent_surf.fill("White")
 
 running = True
 
@@ -42,6 +49,7 @@ while running:
     # Render
     screen.fill("Black")
     screen.blit(player_surf, (player_x_pos, player_y_pos))
+    screen.blit(opponent_surf, (opponent_x_pos, opponent_y_pos))
 
     pygame.display.update()
 
