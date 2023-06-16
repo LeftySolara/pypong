@@ -1,14 +1,15 @@
 import pygame
 from typing import Tuple
 
-class Player():
+class Player(pygame.sprite.Sprite):
     WIDTH = 15
     HEIGHT = 45
 
     def __init__(self):
-        self.surface = pygame.Surface((self.WIDTH, self.HEIGHT))
-        self.surface.fill("White")
-        self.rect = self.surface.get_rect()
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((self.WIDTH, self.HEIGHT))
+        self.image.fill("White")
+        self.rect = self.image.get_rect()
 
     def get_pos(self) -> Tuple[int, int]:
         return self.rect.topleft

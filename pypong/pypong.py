@@ -6,20 +6,27 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 SCREEN_PADDING = 30
 
+# TODO: Randomize ball's start position
+BALL_START_X = SCREEN_WIDTH - SCREEN_PADDING - 20
+BALL_START_Y = SCREEN_PADDING
+
 pygame.init()
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 
 player = Player()
-opponent = Player()
-ball = Ball((SCREEN_WIDTH - SCREEN_PADDING - 20, SCREEN_PADDING))
-
 player.set_y_limit(SCREEN_HEIGHT)
-opponent.set_y_limit(SCREEN_HEIGHT)
-
 player.set_pos((SCREEN_PADDING, SCREEN_PADDING))
+
+opponent = Player()
+opponent.set_y_limit(SCREEN_HEIGHT)
 opponent.set_pos((SCREEN_WIDTH - SCREEN_PADDING - opponent.WIDTH, SCREEN_PADDING))
+
+ball = Ball()
+ball.set_pos((BALL_START_X, BALL_START_Y))
+
+all_sprites = pygame.sprite.Group([player, opponent, ball])
 
 running = True
 
@@ -37,7 +44,7 @@ while running:
         player.move(-4)
     if pressed_keys[pygame.K_DOWN]:
         player.move(4)
-    ball.move(pygame.Vector2(3, 0))
+    ball.move(pygame.Vector2(-3, 0))
 
     collided = pygame.Rect.colliderect(player.rect, ball.rect)
     if collided:
@@ -45,9 +52,7 @@ while running:
 
     # Render
     screen.fill("Black")
-    screen.blit(player.surface, player.rect)
-    screen.blit(opponent.surface, opponent.rect)
-    screen.blit(ball.surface, ball.rect)
+    all_sprites.draw(screen)
 
     pygame.display.update()
 
