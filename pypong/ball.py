@@ -1,25 +1,24 @@
 import pygame
-import random
 from typing import Tuple
 
-class Ball():
+class Ball(pygame.sprite.Sprite):
     WIDTH = 10
     HEIGHT = 10
 
-    def __init__(self, pos: Tuple[int, int], max_y: int):
-        self.x_pos, self.y_pos = pos
-        self.max_y = max_y
-        self.initial_x_pos = self.x_pos
+    def __init__(self, pos: Tuple[int, int]):
         self.surface = pygame.Surface((self.WIDTH, self.HEIGHT))
         self.surface.fill("White")
+        self.rect = self.surface.get_rect(topleft = pos)
+        self.collision = False
 
     def get_pos(self):
-        return (self.x_pos, self.y_pos)
+        return self.rect.topleft
 
-    def reset_pos(self):
-        self.x_pos = self.initial_x_pos
-        self.y_pos = random.randint(1, self.max_y - 1)
+    def update(self, screen):
+        pygame.Surface.blit(self.surface, self.rect)
+            
+    def test_collisions(self, sprite):
+        self.collision = pygame.sprite.collide_rect(self, sprite)
 
-    def move(self, velocity: int):
-        self.x_pos -= velocity
-        self.y_pos += velocity
+    def move(self, velocity: pygame.Vector2):
+        self.rect.center -= velocity

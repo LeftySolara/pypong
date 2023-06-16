@@ -13,7 +13,7 @@ clock = pygame.time.Clock()
 
 player = Player()
 opponent = Player()
-ball = Ball((SCREEN_WIDTH - SCREEN_PADDING - 20, SCREEN_PADDING), SCREEN_HEIGHT)
+ball = Ball((SCREEN_WIDTH - SCREEN_PADDING - 20, SCREEN_PADDING))
 
 player.set_y_limit(SCREEN_HEIGHT)
 opponent.set_y_limit(SCREEN_HEIGHT)
@@ -37,13 +37,17 @@ while running:
         player.move(-4)
     if pressed_keys[pygame.K_DOWN]:
         player.move(4)
-    ball.move(3)
+    ball.move(pygame.Vector2(3, 0))
+
+    collided = pygame.Rect.colliderect(player.rect, ball.rect)
+    if collided:
+        print("Collision")
 
     # Render
     screen.fill("Black")
-    screen.blit(player.surface, player.get_pos())
-    screen.blit(opponent.surface, opponent.get_pos())
-    screen.blit(ball.surface, ball.get_pos())
+    screen.blit(player.surface, player.rect)
+    screen.blit(opponent.surface, opponent.rect)
+    screen.blit(ball.surface, ball.rect)
 
     pygame.display.update()
 
