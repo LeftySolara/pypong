@@ -21,6 +21,7 @@ class Game():
 
         self.ball = Ball()
         self.ball.set_pos((self.SCREEN_WIDTH - self.SCREEN_PADDING - 20, self.SCREEN_PADDING))
+        self.ball.set_velocity(pygame.Vector2(-3, 2))
 
         self.all_sprites = pygame.sprite.Group([self.player, self.opponent, self.ball])
 
@@ -39,12 +40,10 @@ class Game():
             self.player.move(-4)
         if pressed_keys[pygame.K_DOWN]:
             self.player.move(4)
-        self.ball.move(pygame.Vector2(-3, 0))
+        self.ball.move()
 
         # TODO: add ball physics
-        colided = pygame.Rect.colliderect(self.player.rect, self.ball.rect)
-        if (colided):
-            print("Collision")
+        self.ball.test_collisions(self.player)
 
     def render(self):
         self.screen.fill("Black")
