@@ -31,12 +31,12 @@ class Player(pygame.sprite.Sprite):
         else:
             self.direction.y = 0
 
-        if pressed_keys[pygame.K_RIGHT]:
-            self.direction.x = 1
-        elif pressed_keys[pygame.K_LEFT]:
-            self.direction.x = -1
-        else:
-            self.direction.x = 0
+        # if pressed_keys[pygame.K_RIGHT]:
+        #     self.direction.x = 1
+        # elif pressed_keys[pygame.K_LEFT]:
+        #     self.direction.x = -1
+        # else:
+        #     self.direction.x = 0
 
     def collide(self, direction: pygame.math.Vector2):
         collision_sprites = pygame.sprite.spritecollide(self, self.obstacles, False) # Sprites that the player is overlapping with
@@ -72,11 +72,11 @@ class Player(pygame.sprite.Sprite):
         if self.direction.magnitude() != 0:
             self.direction = self.direction.normalize()
         
-        self.pos.x += self.direction.x * self.speed * dt
-        self.rect.x = round(self.pos.x)
-        self.collide("horizontal")
+        # self.pos.x += self.direction.x * self.speed * dt
+        # self.rect.x = round(self.pos.x)
+        # self.collide("horizontal")
 
         self.pos.y += self.direction.y * self.speed * dt
         self.rect.y = round(self.pos.y)
-        self.collide("vertical")
+       #  self.collide("vertical")
         

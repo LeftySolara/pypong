@@ -17,7 +17,7 @@ class Game():
         self.all_sprites = pygame.sprite.Group()
         self.collision_sprites = pygame.sprite.Group()
 
-        self.player = Player([self.all_sprites], self.collision_sprites)
+        self.player = Player([self.all_sprites, self.collision_sprites], self.collision_sprites)
         # self.opponent = Player([self.all_sprites, self.collision_sprites])
 
         self.ball = Ball([self.all_sprites, self.collision_sprites], self.collision_sprites)
