@@ -20,14 +20,12 @@ class Game():
         self.player = Player([self.all_sprites], self.collision_sprites)
         # self.opponent = Player([self.all_sprites, self.collision_sprites])
 
-        self.ball = Ball([self.all_sprites, self.collision_sprites])
+        self.ball = Ball([self.all_sprites, self.collision_sprites], self.collision_sprites)
 
-        self.obstacle1 = StaticObstacle((100, 300), (100, 50), [self.all_sprites, self.collision_sprites])
-        self.obstacle2 = StaticObstacle((400, 400), (100, 200), [self.all_sprites, self.collision_sprites])
-        self.obstacle3 = StaticObstacle((50, 200), (200, 60), [self.all_sprites, self.collision_sprites])
-
-        self.obstacle4 = MovingVerticalObstacle((200, 50), (20, 20), [self.all_sprites, self.collision_sprites])
-        self.obstacle5 = MovingHorizontalObstacle((700, 200), (20, 20), [self.all_sprites, self.collision_sprites])
+        self.top_wall = StaticObstacle((0, self.SCREEN_PADDING), (self.SCREEN_WIDTH, 10), [self.all_sprites, self.collision_sprites])
+        self.left_wall = StaticObstacle((0, self.SCREEN_PADDING + self.top_wall.rect.height), (10, self.SCREEN_HEIGHT - (self.SCREEN_PADDING * 2)), [self.all_sprites, self.collision_sprites])
+        self.bottom_wall = StaticObstacle((0, self.SCREEN_HEIGHT - self.SCREEN_PADDING), (self.SCREEN_WIDTH, 10), [self.all_sprites, self.collision_sprites])
+        self.right_wall = StaticObstacle((self.SCREEN_WIDTH - 10, self.SCREEN_PADDING), (10, self.SCREEN_HEIGHT - (self.SCREEN_PADDING * 2)), [self.all_sprites, self.collision_sprites])
 
         self.pressed_keys = None
 

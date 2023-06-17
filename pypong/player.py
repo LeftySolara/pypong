@@ -5,7 +5,7 @@ class Player(pygame.sprite.Sprite):
     WIDTH = 15
     HEIGHT = 45
 
-    def __init__(self, groups: list[pygame.sprite.Group], obstacles: list[pygame.sprite.Sprite]):
+    def __init__(self, groups: list[pygame.sprite.Group], obstacles: pygame.sprite.Group):
         super().__init__(groups)
 
         self.image = pygame.Surface((self.WIDTH, self.HEIGHT))
@@ -71,8 +71,6 @@ class Player(pygame.sprite.Sprite):
 
         if self.direction.magnitude() != 0:
             self.direction = self.direction.normalize()
-        
-        self.collide("test")
         
         self.pos.x += self.direction.x * self.speed * dt
         self.rect.x = round(self.pos.x)
