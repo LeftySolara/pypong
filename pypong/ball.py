@@ -1,28 +1,17 @@
 import pygame
-from typing import Tuple
 from math import pi, sin, cos
 
 class Ball(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
+    def __init__(self, groups: list[pygame.sprite.Group]):
+        super().__init__(groups)
         self.image = pygame.Surface((10, 10))
-        self.image.fill("White")
-        self.rect = self.image.get_rect()
-        self.collision = False
-        self.vx = 0
-        self.vy = 0
+        self.image.fill("Red")
+        self.rect = self.image.get_rect(center = (640, 360))
+        self.old_rect = self.rect.copy()
 
-    def get_pos(self):
-        return self.rect.topleft
-
-    def set_pos(self, pos: Tuple[int, int]):
-        self.rect.topleft = (pos[0], pos[1])
-
-    def set_velocity(self, velocity: pygame.Vector2) -> None:
-        self.vx, self.vy = velocity
-
-    def move(self):
-        self.rect.topleft += pygame.Vector2(self.vx, self.vy)
+        self.pos = pygame.math.Vector2(self.rect.topleft)
+        self.direction = pygame.math.Vector2(-1, -1)
+        self.speed = 400
 
     def bounce(self, rect: pygame.Rect) -> None:
         """Bounce the ball off of another rectangle."""

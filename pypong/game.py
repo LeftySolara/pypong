@@ -1,6 +1,9 @@
-import pygame
+import pygame, time
 from player import Player
 from ball import Ball
+from static_obstacle import StaticObstacle
+from moving_horizaontal_obstacle import MovingHorizontalObstacle
+from moving_vertical_obstacle import MovingVerticalObstacle
 
 class Game():
     SCREEN_WIDTH = 800
@@ -11,19 +14,22 @@ class Game():
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
 
-        self.player = Player()
-        self.player.set_y_limit(self.SCREEN_HEIGHT)
-        self.player.set_pos((self.SCREEN_PADDING, self.SCREEN_PADDING))
+        self.all_sprites = pygame.sprite.Group()
+        self.collision_sprites = pygame.sprite.Group()
 
-        self.opponent = Player()
-        self.opponent.set_y_limit(self.SCREEN_HEIGHT)
-        self.opponent.set_pos((self.SCREEN_WIDTH - self.SCREEN_PADDING - self.opponent.WIDTH, self.SCREEN_PADDING))
+        self.player = Player([self.all_sprites], self.collision_sprites)
+        # self.opponent = Player([self.all_sprites, self.collision_sprites])
 
-        self.ball = Ball()
-        self.ball.set_pos((self.SCREEN_WIDTH - self.SCREEN_PADDING - 20, self.SCREEN_PADDING))
-        self.ball.set_velocity(pygame.Vector2(-3, 2))
+        self.ball = Ball([self.all_sprites, self.collision_sprites])
 
-        self.all_sprites = pygame.sprite.Group([self.player, self.opponent, self.ball])
+        self.obstacle1 = StaticObstacle((100, 300), (100, 50), [self.all_sprites, self.collision_sprites])
+        self.obstacle2 = StaticObstacle((400, 400), (100, 200), [self.all_sprites, self.collision_sprites])
+        self.obstacle3 = StaticObstacle((50, 200), (200, 60), [self.all_sprites, self.collision_sprites])
+
+        self.obstacle4 = MovingVerticalObstacle((200, 50), (20, 20), [self.all_sprites, self.collision_sprites])
+        self.obstacle5 = MovingHorizontalObstacle((700, 200), (20, 20), [self.all_sprites, self.collision_sprites])
+
+        self.pressed_keys = None
 
         self.running = False
 
@@ -33,29 +39,39 @@ class Game():
                 self.running = False
                 break
 
-        return pygame.key.get_pressed()
+        self.pressed_keys = pygame.key.get_pressed()
 
-    def update_state(self, pressed_keys: pygame.key.ScancodeWrapper):
-        if pressed_keys[pygame.K_UP]:
-            self.player.move(-4)
-        if pressed_keys[pygame.K_DOWN]:
-            self.player.move(4)
-        self.ball.move()
+    # def update_state(self, pressed_keys: pygame.key.ScancodeWrapper):
+    #     if pressed_keys[pygame.K_UP]:
+    #         self.player.move(-4)
+    #     if pressed_keys[pygame.K_DOWN]:
+    #         self.player.move(4)
+    #     self.ball.move()
 
-        # TODO: add ball physics
-        self.ball.test_collisions(self.player)
-
-    def render(self):
-        self.screen.fill("Black")
-        self.all_sprites.draw(self.screen)
-
-        pygame.display.update()
+    #     # TODO: add ball physics
+    #     self.ball.test_collisions(self.player)
 
     def run(self):
+        last_time = time.time()
         self.running = True
 
         while self.running:
-            pressed_keys = self.process_input()
-            self.update_state(pressed_keys)
-            self.render()
-            self.clock.tick(60)
+            # delta time
+            dt = time.time() - last_time
+            last_time = time.time()
+
+            # Event loop
+            self.process_input()
+
+            # Drawing and updating the screen
+            self.screen.fill("Black")
+            self.all_sprites.update(dt)
+            self.all_sprites.draw(self.screen)
+
+            # Display output
+            pygame.display.update()
+
+            # pressed_keys = self.process_input()
+            # self.update_state(pressed_keys)
+            # self.render()
+            # self.clock.tick(60)
