@@ -58,3 +58,9 @@ class Ball(pygame.sprite.Sprite):
         self.pos.y += self.direction.y * self.speed * dt
         self.rect.y = round(self.pos.y)
         self.collide("vertical")
+
+        if self.pos.x < 0 or self.pos.x > 800: #TODO: Replace with constant "SCREEN_WIDTH"
+            self.pos.x = 400
+            self.pos.y = 400
+            self.rect.x = round(self.pos.x)
+            self.rect.y = round(self.pos.y)
