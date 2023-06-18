@@ -1,11 +1,10 @@
 import pygame
-from math import pi, sin, cos
 
 class Ball(pygame.sprite.Sprite):
     def __init__(self, groups: list[pygame.sprite.Group], obstacles: pygame.sprite.Group):
         super().__init__(groups)
         self.image = pygame.Surface((10, 10))
-        self.image.fill("Red")
+        self.image.fill("White")
 
         self.rect = self.image.get_rect(center = (640, 360))
         self.old_rect = self.rect.copy()

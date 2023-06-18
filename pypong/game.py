@@ -16,12 +16,13 @@ class Game():
         self.wall_sprites = pygame.sprite.Group()
         self.collision_sprites = pygame.sprite.Group()
 
-        self.ball = Ball([self.all_sprites, self.collision_sprites], self.collision_sprites)
+        self.ball = Ball([self.all_sprites, self.collision_sprites], self.all_sprites)
 
         self.top_wall = Wall((0, self.SCREEN_PADDING), (self.SCREEN_WIDTH, 5), [self.all_sprites, self.collision_sprites])
         self.bottom_wall = Wall((0, self.SCREEN_HEIGHT - self.SCREEN_PADDING), (self.SCREEN_WIDTH, 5), [self.all_sprites, self.collision_sprites])
 
         self.player = Player((self.SCREEN_PADDING + 10, self.SCREEN_PADDING + 10), [self.all_sprites], self.collision_sprites)
+        self.opponent = Player((self.SCREEN_WIDTH - self.SCREEN_PADDING - 10, self.SCREEN_PADDING + 10), [self.all_sprites, self.collision_sprites], self.collision_sprites)
 
         self.pressed_keys = None
 
