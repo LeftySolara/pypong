@@ -12,6 +12,7 @@ class Game():
     def __init__(self):
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
+        self.font = pygame.font.SysFont(None, 25)
 
         self.all_sprites = pygame.sprite.Group()
         self.wall_sprites = pygame.sprite.Group()
@@ -62,6 +63,11 @@ class Game():
             self.screen.fill("Black")
             self.all_sprites.update(dt)
             self.all_sprites.draw(self.screen)
+
+            player_score = self.font.render(str(self.player.score), False, "White")
+            opponent_score = self.font.render(str(self.opponent.score), False, "White")
+            self.screen.blit(player_score, (self.SCREEN_PADDING, 10))
+            self.screen.blit(opponent_score, (self.SCREEN_WIDTH - self.SCREEN_PADDING, 10))
 
             # Display output
             pygame.display.update()
