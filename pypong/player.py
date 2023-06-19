@@ -4,6 +4,7 @@ from ball import Ball
 class Player(pygame.sprite.Sprite):
     WIDTH = 15
     HEIGHT = 45
+    score = 0
 
     def __init__(self, pos: pygame.math.Vector2, groups: list[pygame.sprite.Group], collision_sprites: pygame.sprite.Group):
         super().__init__(groups)

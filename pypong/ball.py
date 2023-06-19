@@ -1,4 +1,5 @@
 import pygame
+from event import SCORE_PLAYER, SCORE_OPPONENT
 
 class Ball(pygame.sprite.Sprite):
     def __init__(self, groups: list[pygame.sprite.Group], obstacles: pygame.sprite.Group):
@@ -60,6 +61,11 @@ class Ball(pygame.sprite.Sprite):
         self.collide("vertical")
 
         if self.pos.x < 0 or self.pos.x > 800: #TODO: Replace with constant "SCREEN_WIDTH"
+            if self.pos.x < 0:
+                pygame.event.post(pygame.event.Event(SCORE_OPPONENT))
+            elif self.pos.x > 800:
+                pygame.event.post(pygame.event.Event(SCORE_PLAYER))
+
             self.pos.x = 400
             self.pos.y = 400
             self.rect.x = round(self.pos.x)
