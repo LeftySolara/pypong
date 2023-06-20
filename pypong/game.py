@@ -1,5 +1,6 @@
 import pygame, time
 from player import Player
+from opponent import Opponent
 from ball import Ball
 from wall import Wall
 from event import SCORE_PLAYER, SCORE_OPPONENT
@@ -24,7 +25,7 @@ class Game():
         self.bottom_wall = Wall((0, self.SCREEN_HEIGHT - self.SCREEN_PADDING), (self.SCREEN_WIDTH, 5), [self.all_sprites, self.collision_sprites])
 
         self.player = Player((self.SCREEN_PADDING + 10, self.SCREEN_PADDING + 10), [self.all_sprites], self.collision_sprites)
-        self.opponent = Player((self.SCREEN_WIDTH - self.SCREEN_PADDING - 10, self.SCREEN_PADDING + 10), [self.all_sprites, self.collision_sprites], self.collision_sprites)
+        self.opponent = Opponent((self.SCREEN_WIDTH - self.SCREEN_PADDING - 10, self.SCREEN_PADDING + 10), [self.all_sprites, self.collision_sprites], self.collision_sprites)
 
         self.pressed_keys = None
 
@@ -61,6 +62,7 @@ class Game():
 
             # Drawing and updating the screen
             self.screen.fill("Black")
+            self.opponent.run_ai(self.ball)
             self.all_sprites.update(dt)
             self.all_sprites.draw(self.screen)
 
