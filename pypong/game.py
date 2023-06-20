@@ -8,7 +8,7 @@ from event import SCORE_PLAYER, SCORE_OPPONENT
 class Game():
     SCREEN_WIDTH = 800
     SCREEN_HEIGHT = 600
-    SCREEN_PADDING = 30
+    SCREEN_PADDING = 50
 
     def __init__(self):
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
@@ -43,10 +43,8 @@ class Game():
             # Scoring
             if event.type == SCORE_PLAYER:
                 self.player.score += 1
-                print(f"Player: {self.player.score} | Opponent: {self.opponent.score}")
             if event.type == SCORE_OPPONENT:
                 self.opponent.score += 1
-                print(f"Player: {self.player.score} | Opponent: {self.opponent.score}")
 
         self.pressed_keys = pygame.key.get_pressed()
 
