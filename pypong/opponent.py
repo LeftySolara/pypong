@@ -7,9 +7,20 @@ class Opponent(Paddle):
         super().__init__(pos, groups, collision_sprites)
 
     def run_ai(self, ball: Ball):
-        if ball.direction.y > 0:
-            self.dy = 300
-        elif ball.direction.y < 0:
-            self.dy = -300
+        # Ball moving away, do nothing
+        if ball.direction.x < 0:
+            return
+
+        intercept = self.calculate_intercept(ball)
+        if intercept < self.rect.bottom and intercept > self.rect.top:
+            self.dy = 0
+        elif intercept > self.rect.bottom:
+            self.dy = 250
+        elif intercept < self.rect.top:
+            self.dy = -250
         else:
             self.dy = 0
+
+    def calculate_intercept(self, ball: Ball):
+        """Find the point where the ball will intersect the paddle."""
+        return ball.pos.y + (ball.direction.y * (self.rect.left - ball.pos.x))

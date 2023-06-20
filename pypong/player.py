@@ -10,9 +10,9 @@ class Player(Paddle):
 
         # Movement input
         if pressed_keys[pygame.K_UP]:
-            self.dy = -300
+            self.dy = -250
         elif pressed_keys[pygame.K_DOWN]:
-            self.dy = 300
+            self.dy = 250
         else:
             self.dy = 0
 

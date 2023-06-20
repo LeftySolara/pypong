@@ -29,6 +29,8 @@ class Game():
 
         self.pressed_keys = None
 
+        self.frame_counter = 0
+
         self.running = False
 
     def process_events(self):
@@ -62,7 +64,14 @@ class Game():
 
             # Drawing and updating the screen
             self.screen.fill("Black")
-            self.opponent.run_ai(self.ball)
+
+            # Skip the AI processing every 8th frame to make it beatable
+            if (self.frame_counter != 8):
+                self.opponent.run_ai(self.ball)
+                self.frame_counter += 1
+            else:
+                self.frame_counter = 0
+
             self.all_sprites.update(dt)
             self.all_sprites.draw(self.screen)
 
