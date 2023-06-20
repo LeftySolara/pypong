@@ -12,6 +12,7 @@ class Game():
 
     def __init__(self):
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
+        pygame.display.set_caption("PyPong")
         self.clock = pygame.time.Clock()
         self.font = pygame.font.SysFont(None, 50)
 
