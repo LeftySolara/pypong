@@ -13,7 +13,7 @@ class Game():
     def __init__(self):
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
-        self.font = pygame.font.SysFont(None, 25)
+        self.font = pygame.font.SysFont(None, 50)
 
         self.all_sprites = pygame.sprite.Group()
         self.wall_sprites = pygame.sprite.Group()
